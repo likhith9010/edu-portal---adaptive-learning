@@ -1,0 +1,20 @@
+{
+  "std-8": {
+    "c8-rational": {
+      "pKnow": 0.082,
+      "elo": 1275,
+      "attempts": 0,
+      "correct": 0,
+      "hints": 1
+    }
+  },
+  "std-6": {
+    "c6-patterns": {
+      "pKnow": 0.978,
+      "elo": 1405,
+      "attempts": 13,
+      "correct": 11,
+      "hints": 0
+    }
+  }
+}

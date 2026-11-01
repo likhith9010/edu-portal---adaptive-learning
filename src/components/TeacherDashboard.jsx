@@ -1,6 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { USERS_DATA } from '../data/mockUsers';
 import { skillBand, skillBandClass } from '../data/elo';
+import { topicReport } from '../data/tracing';
+import TopicTrace from './TopicTrace';
 import { 
   ShieldCheck, GraduationCap, Users, Plus, Upload, CheckCircle2, 
   Clock, ArrowRight, ArrowLeft, BookOpen, Trash2, Sparkles, 
@@ -22,6 +24,7 @@ export default function TeacherDashboard({
   const [activeGrade, setActiveGrade] = useState("Class 6");
   const [activeAssignment, setActiveAssignment] = useState(null);
   const [activeStudent, setActiveStudent] = useState(null);
+  const [mastery, setMastery] = useState({});
 
   // Form states
   const [newTitle, setNewTitle] = useState('');
@@ -36,6 +39,20 @@ export default function TeacherDashboard({
   const [pdfUploadStatus, setPdfUploadStatus] = useState('');
 
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    if (currentView !== 'classroom-page' && currentView !== 'student-progress-page') return undefined;
+    let cancelled = false;
+    fetch('/api/mastery')
+      .then((res) => (res.ok ? res.json() : {}))
+      .then((data) => {
+        if (!cancelled && data && typeof data === 'object') setMastery(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [currentView, activeStudent]);
 
   // Active grade data
   const currentGradeModules = mathModules[activeGrade] || [];
@@ -339,8 +356,18 @@ export default function TeacherDashboard({
             {USERS_DATA.filter((user) => user.role === 'student' && user.grade === activeGrade).map((student) => {
               const elo = Number.isFinite(Number(ratings?.[student.id])) ? Number(ratings[student.id]) : student.elo;
               const band = skillBand(elo);
+              const gapCount = topicReport(mastery[student.id], elo, student.gradeNum).gaps.length;
               return (
-                <div key={student.id} className="border border-slate-200 rounded-xl p-4 flex items-start gap-3">
+                <button
+                  key={student.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveStudent(student);
+                    setCurrentView('student-progress-page');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="border border-slate-200 rounded-xl p-4 flex items-start gap-3 text-left hover:border-blue-300 hover:bg-slate-50 cursor-pointer"
+                >
                   <div className={`w-11 h-11 rounded-xl ${student.color || 'bg-blue-600'} text-white font-black text-sm flex items-center justify-center shrink-0`}>
                     {student.initials}
                   </div>
@@ -357,8 +384,11 @@ export default function TeacherDashboard({
                     <p className="text-[11px] font-mono text-slate-600 mt-1">
                       Roll {student.rollNo} · Joined {student.joiningYear}
                     </p>
+                    <p className="text-[11px] font-bold text-blue-700 mt-2">
+                      {gapCount ? `${gapCount} topic gap${gapCount === 1 ? '' : 's'} · open profile` : 'Open topic profile'}
+                    </p>
                   </div>
-                </div>
+                </button>
               );
             })}
           </div>
@@ -832,6 +862,12 @@ export default function TeacherDashboard({
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
+
+        <TopicTrace
+          record={mastery[activeStudent.id]}
+          elo={Number.isFinite(Number(ratings?.[activeStudent.id])) ? Number(ratings[activeStudent.id]) : activeStudent.elo}
+          gradeNum={activeStudent.gradeNum}
+        />
 
         {/* Course Progress Card */}
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">

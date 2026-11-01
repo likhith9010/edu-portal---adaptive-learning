@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { class8Chapter } from '../data/class8Study';
 import { class6Chapter } from '../data/class6Study';
 import { applyEloEvents, selectByRating } from '../data/elo';
+import { conceptFor } from '../data/conceptGraph';
 import { 
   GraduationCap, BookOpen, CheckCircle2, Clock, Sparkles, Send, 
   BrainCircuit, ArrowRight, ArrowLeft, Check, FileText,
@@ -578,7 +579,8 @@ export default function StudentDashboard({ student, mathModules, onToggleModuleC
       else wrong += 1;
       events.push({
         level: question.level || 'Medium',
-        outcome: matched ? 'correct' : 'wrong'
+        outcome: matched ? 'correct' : 'wrong',
+        concept: conceptFor(activeModule.id, question.id)
       });
     }
     setTestScore({ correct, wrong });
@@ -657,7 +659,11 @@ export default function StudentDashboard({ student, mathModules, onToggleModuleC
     if (!activeModule || hintLoadingId) return;
     if (!hintedRef.current[question.id]) {
       hintedRef.current[question.id] = true;
-      recordEvents([{ level: question.level || 'Medium', outcome: 'hint' }]);
+      recordEvents([{
+        level: question.level || 'Medium',
+        outcome: 'hint',
+        concept: conceptFor(activeModule.id, question.id)
+      }]);
     }
     setHintLoadingId(question.id);
     try {

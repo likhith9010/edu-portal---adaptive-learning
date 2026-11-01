@@ -9,6 +9,8 @@ import { USERS } from './data/users.js';
 import { generateSamplePdf, generatePagedPdf, blocksForChapter } from './generateSamplePdf.js';
 import { CLASS8_CHAPTERS } from '../src/data/class8Study.js';
 import { applyEloEvents } from '../src/data/elo.js';
+import { conceptById } from '../src/data/conceptGraph.js';
+import { applyMastery } from '../src/data/tracing.js';
 
 dotenv.config();
 
@@ -28,6 +30,7 @@ let dynamicAssignments = [];
 // When teacher uploads a PDF, its metadata and buffer are stored here
 const pdfStore = new Map();
 const ratingsPath = path.join(__dirname, 'data', 'ratings.json');
+const masteryPath = path.join(__dirname, 'data', 'mastery.json');
 
 function readRatings() {
   try {
@@ -45,6 +48,19 @@ function writeRatings(ratings) {
 function savedElo(user) {
   const saved = readRatings()[user?.id];
   return Number.isFinite(Number(saved)) ? Number(saved) : user?.elo;
+}
+
+function readMastery() {
+  try {
+    const data = JSON.parse(fs.readFileSync(masteryPath, 'utf8'));
+    return data && typeof data === 'object' && !Array.isArray(data) ? data : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeMastery(mastery) {
+  fs.writeFileSync(masteryPath, JSON.stringify(mastery, null, 2));
 }
 
 // 1. Health check
@@ -254,14 +270,23 @@ app.post('/api/elo', (req, res) => {
     event && (event.outcome === 'correct' || event.outcome === 'wrong' || event.outcome === 'hint')
   )).map((event) => ({
     level: event.level === 'Easy' || event.level === 'Hard' ? event.level : 'Medium',
-    outcome: event.outcome
+    outcome: event.outcome,
+    concept: conceptById(event.concept) ? event.concept : null
   }));
   if (!clean.length) return res.status(400).json({ error: 'No results to score' });
-  const next = applyEloEvents(savedElo(user), clean);
+  const before = savedElo(user);
+  const next = applyEloEvents(before, clean);
   const all = readRatings();
   all[userId] = next;
   writeRatings(all);
+  const mastery = readMastery();
+  mastery[userId] = applyMastery(mastery[userId], clean, before);
+  writeMastery(mastery);
   res.json({ elo: next });
+});
+
+app.get('/api/mastery', (_req, res) => {
+  res.json(readMastery());
 });
 
 // 3. Get all students (for Teacher Dashboard)
