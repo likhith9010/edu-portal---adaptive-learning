@@ -1,0 +1,144 @@
+{
+  "Class 6": [
+    {
+      "id": "m-1793481341217",
+      "title": "pattern in mathematics",
+      "chapter": "chapter 1",
+      "assignmentType": "PDF Worksheet & Exercises",
+      "description": "learn pattern in mathematics",
+      "teacherRemarks": "learn pattern in mathematics",
+      "completed": false,
+      "addedBy": "Dr. Priya Sundaram",
+      "dateAdded": "Just now",
+      "dueDate": "Upcoming",
+      "hasPdf": true,
+      "pdfAttachment": {
+        "fileName": "fegp101.pdf",
+        "fileSize": "650 KB",
+        "uploadDate": "Just now"
+      },
+      "learningObjectives": [
+        "Master the key concepts in chapter 1",
+        "Solve textbook exercises and worksheet problems"
+      ],
+      "practiceProblems": [
+        {
+          "q": "1. Practice Question for pattern in mathematics",
+          "ans": "Solve using standard theorems and formulas."
+        }
+      ]
+    },
+    {
+      "id": "m-1793481435098",
+      "title": "lines and angles",
+      "chapter": "chapter 2",
+      "assignmentType": "PDF Worksheet & Exercises",
+      "description": "learn the chapter pay special attention to complementary angles",
+      "teacherRemarks": "learn the chapter pay special attention to complementary angles",
+      "completed": false,
+      "addedBy": "Dr. Priya Sundaram",
+      "dateAdded": "Just now",
+      "dueDate": "Upcoming",
+      "hasPdf": true,
+      "pdfAttachment": {
+        "fileName": "fegp102.pdf",
+        "fileSize": "3.4 MB",
+        "uploadDate": "Just now"
+      },
+      "learningObjectives": [
+        "Master the key concepts in chapter 2",
+        "Solve textbook exercises and worksheet problems"
+      ],
+      "practiceProblems": [
+        {
+          "q": "1. Practice Question for lines and angles",
+          "ans": "Solve using standard theorems and formulas."
+        }
+      ]
+    },
+    {
+      "id": "m-1793481472515",
+      "title": "number play",
+      "chapter": "chapter 3",
+      "assignmentType": "PDF Worksheet & Exercises",
+      "description": "go through number play chapter",
+      "teacherRemarks": "go through number play chapter",
+      "completed": false,
+      "addedBy": "Dr. Priya Sundaram",
+      "dateAdded": "Just now",
+      "dueDate": "Upcoming",
+      "hasPdf": true,
+      "pdfAttachment": {
+        "fileName": "fegp103.pdf",
+        "fileSize": "1.7 MB",
+        "uploadDate": "Just now"
+      },
+      "learningObjectives": [
+        "Master the key concepts in chapter 3",
+        "Solve textbook exercises and worksheet problems"
+      ],
+      "practiceProblems": [
+        {
+          "q": "1. Practice Question for number play",
+          "ans": "Solve using standard theorems and formulas."
+        }
+      ]
+    },
+    {
+      "id": "m-1793481540306",
+      "title": "data handling and presentation",
+      "chapter": "chapter 4",
+      "assignmentType": "PDF Worksheet & Exercises",
+      "description": "important chapter for class pay attention",
+      "teacherRemarks": "important chapter for class pay attention",
+      "completed": false,
+      "addedBy": "Dr. Priya Sundaram",
+      "dateAdded": "Just now",
+      "dueDate": "Upcoming",
+      "hasPdf": true,
+      "pdfAttachment": {
+        "fileName": "fegp104.pdf",
+        "fileSize": "4.7 MB",
+        "uploadDate": "Just now"
+      },
+      "learningObjectives": [
+        "Master the key concepts in chapter 4",
+        "Solve textbook exercises and worksheet problems"
+      ],
+      "practiceProblems": [
+        {
+          "q": "1. Practice Question for data handling and presentation",
+          "ans": "Solve using standard theorems and formulas."
+        }
+      ]
+    },
+    {
+      "id": "m-1793481583900",
+      "title": "prime time",
+      "chapter": "chapter 5",
+      "assignmentType": "PDF Worksheet & Exercises",
+      "description": "common multiples topic is a must learn",
+      "teacherRemarks": "common multiples topic is a must learn",
+      "completed": false,
+      "addedBy": "Dr. Priya Sundaram",
+      "dateAdded": "Just now",
+      "dueDate": "Upcoming",
+      "hasPdf": true,
+      "pdfAttachment": {
+        "fileName": "fegp105.pdf",
+        "fileSize": "1.1 MB",
+        "uploadDate": "Just now"
+      },
+      "learningObjectives": [
+        "Master the key concepts in chapter 5",
+        "Solve textbook exercises and worksheet problems"
+      ],
+      "practiceProblems": [
+        {
+          "q": "1. Practice Question for prime time",
+          "ans": "Solve using standard theorems and formulas."
+        }
+      ]
+    }
+  ]
+}
